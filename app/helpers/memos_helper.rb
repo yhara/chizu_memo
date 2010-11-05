@@ -1,5 +1,5 @@
-require 'pc_emoticons.rb'
+require 'pc_emoticon.rb'
 
 module MemosHelper
-  include Jpmobile::PCEmoticons
+  include Jpmobile::PCEmoticon
 end
