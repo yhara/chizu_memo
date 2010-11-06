@@ -1,0 +1,22 @@
+<div id="topbar" class="transparent">
+  <div id="title">地図メモ</div>
+  <div id="rightbutton"><%= link_to '新規', new_memo_path %></div> 
+</div>
+
+<div id="content">
+  <span class="graytitle">メモ一覧</span>
+  <ul class="pageitem"> 
+    <% @memos.each do |memo| %>
+      <li class="menu">
+        <a href="<%= url_for memo %>" class="name">
+          <%= translate_emoticons memo.content.truncate(15) %>
+        </a>
+        <span class="arrow"></span> 
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<div id="footer">
+  <a href="http://iwebkit.net">Powered by iWebKit</a>
+</div>
