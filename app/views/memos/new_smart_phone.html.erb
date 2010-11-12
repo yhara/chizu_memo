@@ -1,0 +1,26 @@
+<h1>New memo</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', memos_path %>
+
+<script>
+  navigator.geolocation.getCurrentPosition(function(pos){
+    $("memo_lat").value = pos.coords.latitude;
+    $("memo_lon").value = pos.coords.longitude;
+  }, function(){ /* 取得失敗 */ });
+
+  var watchId;
+  function force_geo(){
+    watchId = navigator.geolocation.watchPosition(function(pos){
+      alert(pos);
+      $("memo_lat").value = pos.coords.latitude;
+      $("memo_lon").value = pos.coords.longitude;
+      navigator.geolocation.clearWatch(watchId);
+    });
+  }
+</script>
+
+<input type="button" value="別の方法" onclick="javascript:force_geo();" />
+
+
