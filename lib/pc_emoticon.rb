@@ -32,7 +32,7 @@ module Jpmobile
     def self.emoticons_path=(v); @@emoticons_path = v; end
 
     def translate_emoticons(str)
-      html_escape(str).gsub(/[\u{E468}-\u{F537}]/){|c|
+      html_escape(str).gsub(/[\uE468-\uF537]/){|c|
         case (v = CONVERSION_TABLE[c.unpack("U").first])
         when Symbol
           file = v.to_s.sub(/\A_/, "").gsub(/_/, "-")
