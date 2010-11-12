@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'jpmobile', :path => "~/proj/_forked/jpmobile/"
+#gem 'jpmobile', :path => "~/proj/_forked/jpmobile/"
+gem 'jpmobile', :git => "git://github.com/jpmobile/jpmobile.git"
 
 gem 'rails', '3.0.1'
 

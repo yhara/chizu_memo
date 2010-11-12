@@ -1,5 +1,6 @@
-PATH
-  remote: /Users/yhara/proj/_forked/jpmobile
+GIT
+  remote: git://github.com/jpmobile/jpmobile.git
+  revision: 1e61ba8bd09d06ed3f68a83d4eb9a0f6fb7168e5
   specs:
     jpmobile (0.1.2)
 
