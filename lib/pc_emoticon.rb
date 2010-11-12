@@ -2,7 +2,7 @@
 
 # dependency:
 #   jpmobile
-#   rails(activesupport)
+#   rails(activesupport) for html_escape
 
 # License: MIT
 #
@@ -1252,22 +1252,34 @@ module Jpmobile
 end
 
 if $0==__FILE__
+  class String; def html_safe; self; end; end
+  def html_escape(str)
+    str
+  end
+  include Jpmobile::PCEmoticon
+
   # tests
-  before = "今日は\u{E63E}なり\u{F420}"
+  before = "今日は\uE63Eなり\uF420"
   expected = "今日は<img src='/images/emoticons/sun.gif'>なり<img src='/images/emoticons/ok.gif'>"
-  given = Jpmobile::PCEmoticon.translate(before)
+  given = translate_emoticons(before)
   raise given unless given == expected
 
   # map '_' to '-'
-  before = "\u{E736}Yutaka Hara"
+  before = "\uE736Yutaka Hara"
   expected = "<img src='/images/emoticons/r-mark.gif'>Yutaka Hara"
-  given = Jpmobile::PCEmoticon.translate(before)
+  given = translate_emoticons(before)
   raise given unless given == expected
 
   # map the first '_' to ''
-  before = "\u{E4A4}営業"
+  before = "\uE4A4営業"
   expected = "<img src='/images/emoticons/24hours.gif'>営業"
-  given = Jpmobile::PCEmoticon.translate(before)
+  given = translate_emoticons(before)
+  raise given unless given == expected
+  
+  # do not map alphabets
+  before = "NaCl"
+  expected = "NaCl"
+  given = translate_emoticons(before)
   raise given unless given == expected
 
   puts "test ok"
