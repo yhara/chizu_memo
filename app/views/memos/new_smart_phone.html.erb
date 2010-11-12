@@ -6,14 +6,16 @@
 
 <script>
   navigator.geolocation.getCurrentPosition(function(pos){
+    alert("current Position: "+pos);
     $("memo_lat").value = pos.coords.latitude;
     $("memo_lon").value = pos.coords.longitude;
   }, function(){ /* 取得失敗 */ });
 
   var watchId;
   function force_geo(){
+    alert("using watchPosition..");
     watchId = navigator.geolocation.watchPosition(function(pos){
-      alert(pos);
+      alert("watchPosition: "+pos);
       $("memo_lat").value = pos.coords.latitude;
       $("memo_lon").value = pos.coords.longitude;
       navigator.geolocation.clearWatch(watchId);
