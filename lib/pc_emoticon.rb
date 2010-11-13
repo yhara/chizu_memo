@@ -45,6 +45,27 @@ module Jpmobile
       }.html_safe
     end
 
+    if not defined?(::Encoding) # for Ruby 1.8
+      def translate_emoticons(str)
+        # [\uE468-\uF537]
+        html_escape(str).chars.map{|c|
+          if ("\xEE\x91\xA8".."\xEF\x94\xB7").include? c
+            case (v = CONVERSION_TABLE[c.unpack("U").first])
+            when Symbol
+              file = v.to_s.sub(/\A_/, "").gsub(/_/, "-")
+              "<img src='#{Jpmobile::PCEmoticon.emoticons_path}/#{html_escape file}.gif'>"
+            when String
+              v
+            else
+              "[?]"
+            end
+          else
+            c
+          end
+        }.join.html_safe
+      end
+    end
+
     CONVERSION_TABLE = {
       0xE63E => :sun,
       0xE63F => :cloud,
@@ -1252,33 +1273,38 @@ module Jpmobile
 end
 
 if $0==__FILE__
+  $KCODE = "u"
   class String; def html_safe; self; end; end
   def html_escape(str)
     str
   end
   include Jpmobile::PCEmoticon
 
+  def u(n)
+    [n].pack("U")
+  end
+  
   # tests
-  before = "今日は\uE63Eなり\uF420"
+  before = "今日は#{u 0xE63E}なり#{u 0xF420}"
   expected = "今日は<img src='/images/emoticons/sun.gif'>なり<img src='/images/emoticons/ok.gif'>"
   given = translate_emoticons(before)
   raise given unless given == expected
 
   # map '_' to '-'
-  before = "\uE736Yutaka Hara"
+  before = "#{u 0xE736}Yutaka Hara"
   expected = "<img src='/images/emoticons/r-mark.gif'>Yutaka Hara"
   given = translate_emoticons(before)
   raise given unless given == expected
 
   # map the first '_' to ''
-  before = "\uE4A4営業"
+  before = "#{u 0xE4A4}営業"
   expected = "<img src='/images/emoticons/24hours.gif'>営業"
   given = translate_emoticons(before)
   raise given unless given == expected
   
   # do not map alphabets
-  before = "NaCl"
-  expected = "NaCl"
+  before = "ABcd"
+  expected = "ABcd"
   given = translate_emoticons(before)
   raise given unless given == expected
 
