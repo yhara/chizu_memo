@@ -27,16 +27,16 @@
 # IN THE SOFTWARE.
 module Jpmobile
   module PCEmoticon
-    @@emoticons_path = "/images/emoticons"
-    def self.emoticons_path; @@emoticons_path; end
-    def self.emoticons_path=(v); @@emoticons_path = v; end
+    @emoticons_path = "/images/emoticons"
+    def self.emoticons_path; @emoticons_path; end
+    def self.emoticons_path=(v); @emoticons_path = v; end
 
     def translate_emoticons(str)
       html_escape(str).gsub(/[\uE468-\uF537]/){|c|
         case (v = CONVERSION_TABLE[c.unpack("U").first])
         when Symbol
           file = v.to_s.sub(/\A_/, "").gsub(/_/, "-")
-          "<img src='#{@@emoticons_path}/#{html_escape file}.gif'>"
+          "<img src='#{Jpmobile::PCEmoticon.emoticons_path}/#{html_escape file}.gif'>"
         when String
           v
         else
