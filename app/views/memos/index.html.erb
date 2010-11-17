@@ -12,7 +12,7 @@
 
 <% @memos.each do |memo| %>
   <tr>
-    <td><%= translate_emoticons(memo.content) %></td>
+    <td><%= memo.content %></td>
     <td><%= memo.lat %></td>
     <td><%= memo.lon %></td>
     <td><%= link_to 'Show', memo %></td>
