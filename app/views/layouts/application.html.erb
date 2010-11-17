@@ -8,6 +8,17 @@
 </head>
 <body>
 
+  <div id="header">
+    <% if user_signed_in? %>
+      <%= link_to "logout", destroy_user_session_path %>
+    <% else %>
+      <%= link_to "login(Email:a@b.cd Password:adgjmp)", new_user_session_path %>
+    <% end %>
+  </div>
+
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+
 <%= yield %>
 
 </body>
