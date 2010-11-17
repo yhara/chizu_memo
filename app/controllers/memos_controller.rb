@@ -1,4 +1,5 @@
 class MemosController < ApplicationController
+  before_filter :authenticate_user!, :except => [:index, :show, :new, :create]
   trans_sid
   hankaku_filter
 
