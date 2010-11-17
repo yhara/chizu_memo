@@ -1,4 +1,4 @@
-<%= form_for(@memo) do |f| %>
+<%= form_for @memo do |f| %>
   <% if @memo.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@memo.errors.count, "error") %> prohibited this memo from being saved:</h2>
@@ -10,29 +10,17 @@
       </ul>
     </div>
   <% end %>
-
-  <ul class="pageitem">
-    <li class="textbox">
-    <span class="name">メモ</span>
-    <%= f.text_area :content, :rows => 4 %>
-    </li>
-  </ul>
-
-  <ul class="pageitem"> 
-    <li class="smallfield">
-    <span class="name">lat</span>
-    <%= f.text_field :lat, :placeholder => "waiting GPS.." %>
-    </li>
-    <li class="smallfield">
-    <span class="name">lon</span>
-    <%= f.text_field :lon, :placeholder => "waiting GPS.." %>
-    </li>
-  </ul>
-
-  <ul class="pageitem">
-    <li class="button">
-    <%= f.submit "送信" %>
-    </li>
-  </ul>
-
+  <p>
+    <%= f.label :content %><br />
+    <%= f.text_area :content %>
+  </p>
+  <p>
+    <%= f.label :lat %><br />
+    <%= f.text_field :lat %>
+  </p>
+  <p>
+    <%= f.label :lon %><br />
+    <%= f.text_field :lon %>
+  </p>
+  <p><%= f.submit %></p>
 <% end %>
