@@ -1,4 +1,6 @@
 ChizuMemo::Application.routes.draw do
+  devise_for :users
+
   resources :memos
   root :to => "memos#index"
 
