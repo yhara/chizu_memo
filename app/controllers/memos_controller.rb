@@ -1,4 +1,5 @@
 class MemosController < ApplicationController
+  trans_sid
   hankaku_filter
 
   # GET /memos
