@@ -1,8 +1,9 @@
-<h1>New memo</h1>
+<div id="topbar" class="transparent">
+  <div id="leftbutton"><%= link_to 'キャンセル', memos_path %></div> 
+  <div id="title">地図メモ</div>
+</div>
 
 <%= render 'form' %>
-
-<%= link_to 'Back', memos_path %>
 
 <!-- <script> -->
 <!--   navigator.geolocation.getCurrentPosition(function(pos){ -->
@@ -30,7 +31,7 @@
 <script>
   var geo = google.gears.factory.create("beta.geolocation");
   geo.getCurrentPosition(function(pos){
-    alert("gears: "+pos);
+    //alert("gears: "+pos);
     $("memo_lat").value = pos.latitude;
     $("memo_lon").value = pos.longitude;
   }, function(){ /*errorr*/});

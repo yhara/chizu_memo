@@ -11,19 +11,28 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :content %><br />
+  <ul class="pageitem">
+    <li class="textbox">
+    <span class="name">メモ</span>
     <%= f.text_area :content, :rows => 4 %>
-  </div>
-  <div class="field">
-    <%= f.label :lat %><br />
-    <%= f.text_field :lat %>
-  </div>
-  <div class="field">
-    <%= f.label :lon %><br />
-    <%= f.text_field :lon %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    </li>
+  </ul>
+
+  <ul class="pageitem"> 
+    <li class="smallfield">
+    <span class="name">lat</span>
+    <%= f.text_field :lat, :placeholder => "waiting GPS.." %>
+    </li>
+    <li class="smallfield">
+    <span class="name">lon</span>
+    <%= f.text_field :lon, :placeholder => "waiting GPS.." %>
+    </li>
+  </ul>
+
+  <ul class="pageitem">
+    <li class="button">
+    <%= f.submit "送信" %>
+    </li>
+  </ul>
+
 <% end %>
