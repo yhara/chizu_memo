@@ -5,34 +5,20 @@
 
 <%= render 'form' %>
 
-<!-- <script> -->
-<!--   navigator.geolocation.getCurrentPosition(function(pos){ -->
-<!--     alert("current Position: "+pos); -->
-<!--     $("memo_lat").value = pos.coords.latitude; -->
-<!--     $("memo_lon").value = pos.coords.longitude; -->
-<!--   }, function(){ /* 取得失敗 */ }); -->
-<!--  -->
-<!--   var watchId; -->
-<!--   function force_geo(){ -->
-<!--     alert("using watchPosition.."); -->
-<!--     watchId = navigator.geolocation.watchPosition(function(pos){ -->
-<!--       alert("watchPosition: "+pos); -->
-<!--       $("memo_lat").value = pos.coords.latitude; -->
-<!--       $("memo_lon").value = pos.coords.longitude; -->
-<!--       navigator.geolocation.clearWatch(watchId); -->
-<!--     }); -->
-<!--   } -->
-<!-- </script> -->
-<!--  -->
-<!-- <input type="button" value="別の方法" onclick="javascript:force_geo();" /> -->
-
-
 <%= javascript_include_tag "gears_init.js" %>
 <script>
-  var geo = google.gears.factory.create("beta.geolocation");
-  geo.getCurrentPosition(function(pos){
-    //alert("gears: "+pos);
-    $("memo_lat").value = pos.latitude;
-    $("memo_lon").value = pos.longitude;
-  }, function(){ /*errorr*/});
+  if(navigator.geolocation){
+    // iphone, android 2.x
+    var geo = navigator.geolocation;
+  }
+  else{
+    // android 1.6
+    var geo = google.gears.factory.create("beta.geolocation");
+  }
+
+  var watchId = geo.watchPosition(function(pos){ 
+    $("memo_lat").value = pos.latitude  || pos.coords.latitude; 
+    $("memo_lon").value = pos.longitude || pos.coords.longitude; 
+    geo.clearWatch(watchId); 
+  }); 
 </script>
